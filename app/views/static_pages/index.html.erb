@@ -1,0 +1,23 @@
+<h1>Hi, and welcome!</h1>
+
+<%= form_with url: '/index', method: :get do |form| %>
+  <%= form.label :user_id, "Photos of User Id:" %>
+  <%= form.text_field :user_id %>
+  <%= form.submit 'Search' %>
+<% end %>
+
+<br />
+<br />
+
+<% @photos.each do |pic| %>
+  <div>
+    <img src="<%= Flickr.url_n(pic)%>"/>
+    <h3>Title: </h3><p><%= @infohash[pic.id].title %></p>
+    <h3>Author: </h3><p><%= @infohash[pic.id].owner.realname%> -- id: <%= @infohash[pic.id].owner.nsid %></p>
+    <% if @hasher[pic.id][0] != nil %>
+      <h4>First Comment: </h4><p><%= @hasher[pic.id].comment.first %></p>
+    <% end %>
+  </div>
+  <p>-----------------------</p>
+<% end %>
+
